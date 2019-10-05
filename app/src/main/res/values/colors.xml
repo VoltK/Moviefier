@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primaryColor">#f57c00</color>
+
+    <color name="primaryLightColor">#ffad42</color>
+
+    <color name="primaryDarkColor">#bb4d00</color>
+
+    <color name="primaryTextColor">#000000</color>
+
+    <color name="backgroundOlive">#A7CDC2</color>
+    <color name="colorOrangeText">#DE5920</color>
+
+    <!-- rating colors -->
+    <color name="rating1">#000000</color>
+
+    <color name="rating2">#a30000</color>
+
+    <color name="rating3">#d41212</color>
+
+    <color name="rating4">#ef7247</color>
+
+    <color name="rating5">#d1b849</color>
+
+    <color name="rating6">#a3ca17</color>
+
+    <color name="rating7">#5be10e</color>
+
+    <color name="rating8">#26c40e</color>
+
+    <color name="rating9">#10b90e</color>
+
+    <color name="rating10">#06d902</color>
+
+</resources>

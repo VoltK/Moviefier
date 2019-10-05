@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Moviefier</string>
+    <string name="location">Country: </string>
+    <string name="view_all">View All</string>
+    <string name="upcoming">Upcoming</string>
+    <string name="week_release">This Week Releases</string>
+    <string name="top">Top Rated</string>
+
+    <string name="overview_test">
+        Lorem ipsum dolor sit amet, nam eu accumsan felis aenean non in, vel ut amet eget sagittis odio, donec et in lobortis cras. Malesuada sed fermentum ultrices nisl, sed nullam amet morbi et maecenas mi, elementum porttitor vitae quisque, turpis dapibus, dolorum eu non sed amet tortor. Tempus blandit, elit ut hic sagittis mauris augue, vitae vel turpis pede, fermentum ipsum non mollis nulla, feugiat erat. Vitae vitae vestibulum proin magna, eu integer, libero elit mauris scelerisque nec vero. Consectetuer ut, aenean interdum ac velit etiam, proin nunc nisl luctus ligula metus. Class amet vitae eleifend, cursus venenatis, iaculis purus molestie ut, parturient interdum pede enim, pede senectus nisl nam. Quis magna amet tempor nunc cursus, amet mauris diam ullamcorper proin mattis, et libero bibendum etiam aliquam tempus, id eget tempus eu sociosqu, lacus cursus.
+    </string>
+</resources>

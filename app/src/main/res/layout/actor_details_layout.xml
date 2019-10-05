@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:background="@color/backgroundOlive"
+                xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+    <ProgressBar
+            style="?android:attr/progressBarStyle"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:id="@+id/progressActorDetails" android:layout_centerHorizontal="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="211dp"/>
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="19dp" android:layout_centerHorizontal="true" android:layout_alignParentTop="true"
+            android:id="@+id/actorScrollDetails">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                      android:orientation="vertical">
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center">
+                <android.support.constraint.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" android:layout_weight="1">
+
+                    <ImageView
+                            android:layout_width="180dp"
+                            android:layout_height="280dp" app:srcCompat="@drawable/intestellar"
+                            android:id="@+id/actorDetailsPhoto"
+                            android:scaleType="centerInside"
+                            android:layout_weight="1"
+                            app:layout_constraintStart_toStartOf="parent"
+                            android:layout_marginStart="8dp" android:layout_marginEnd="8dp"
+                            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent"
+                            android:layout_marginTop="8dp"/>
+                    <ProgressBar
+                            style="?android:attr/progressBarStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/progressActorDetailsPhoto" android:layout_marginTop="100dp"
+                            app:layout_constraintTop_toTopOf="@+id/actorDetailsPhoto"
+                            app:layout_constraintStart_toStartOf="@+id/actorDetailsPhoto"
+                            android:layout_marginStart="64dp" app:layout_constraintEnd_toEndOf="@+id/actorDetailsPhoto"
+                            android:layout_marginEnd="8dp"
+                            app:layout_constraintBottom_toBottomOf="@+id/actorDetailsPhoto"
+                            android:layout_marginBottom="8dp" app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintVertical_bias="0.0"/>
+                </android.support.constraint.ConstraintLayout>
+            </LinearLayout>
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:layout_weight="1">
+                <TextView
+                        android:text="Vlad Khudik"
+                        android:textSize="24sp"
+                        android:textColor="@color/primaryTextColor"
+                        android:textStyle="bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:id="@+id/actorDetailsName"
+                />
+            </LinearLayout>
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:layout_weight="1">
+                <TextView
+                        android:text="(1998-2998)"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/primaryTextColor"
+                        android:gravity="center"
+                        android:id="@+id/actorDetailsYears"
+                        android:layout_weight="1"/>
+            </LinearLayout>
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                <android.support.constraint.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                    <TextView
+                            android:text="Known For:"
+                            android:textColor="@color/colorOrangeText"
+                            android:textSize="18dp"
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" android:id="@+id/textView2"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="24dp"
+                            android:layout_marginTop="6dp"/>
+                    <android.support.v7.widget.RecyclerView
+                            android:layout_width="match_parent"
+                            android:layout_height="220dp"
+                            android:id="@+id/actorDetailsMovies"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.0" android:layout_marginTop="5dp"
+                            app:layout_constraintTop_toBottomOf="@+id/textView2"/>
+                </android.support.constraint.ConstraintLayout>
+            </LinearLayout>
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" android:layout_weight="1">
+                <android.support.constraint.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                    <TextView
+                            android:text="Biography:"
+                            android:textColor="@color/colorOrangeText"
+                            android:textSize="18dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" android:id="@+id/textView15"
+                            android:layout_marginTop="15dp"
+                            app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
+                            android:layout_marginStart="24dp"/>
+                    <TextView
+                            android:text="@string/overview_test"
+                            android:layout_width="350dp"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/primaryTextColor"
+                            android:gravity="start"
+
+                            android:id="@+id/actorDetailsBio"
+                            android:layout_marginTop="5dp" app:layout_constraintTop_toBottomOf="@+id/textView15"
+                            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="24dp"/>
+                </android.support.constraint.ConstraintLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>
