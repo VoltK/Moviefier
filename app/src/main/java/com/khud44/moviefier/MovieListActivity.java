@@ -95,20 +95,32 @@ public class MovieListActivity extends AppCompatActivity {
             public void onChanged(@Nullable final List<MovieRoomItem> movieRoomItems) {
                 //List<RetroMovie> movies = new ArrayList<>();
                 for(MovieRoomItem item: movieRoomItems){
-                    //movies.add(new RetroMovie());
-                    RetroMovie retroMovie = new RetroMovie();
-                    retroMovie.setId(item.getMovie_id());
-                    retroMovie.setPosterPath(item.getPosterPath());
-                    retroMovie.setTitle(item.getTitle());
-                    retroMovie.setVoteAverage(item.getRating());
-                    retroMovie.setReleaseDate(item.getReleaseDate());
-                    List<Integer> genre = new ArrayList<>(item.getGenre());
-                    retroMovie.setGenreIds(genre);
-                    adapter.add(retroMovie);
+                    // don't add it again if already in adapter
+                    if(!existInAdapter(item)){
+                        RetroMovie retroMovie = new RetroMovie();
+                        retroMovie.setId(item.getMovie_id());
+                        retroMovie.setPosterPath(item.getPosterPath());
+                        retroMovie.setTitle(item.getTitle());
+                        retroMovie.setVoteAverage(item.getRating());
+                        retroMovie.setReleaseDate(item.getReleaseDate());
+                        List<Integer> genre = new ArrayList<>(item.getGenre());
+                        retroMovie.setGenreIds(genre);
+                        adapter.add(retroMovie);
+                    }
                 }
             }
         });
         checkEmptyView();
+    }
+
+    private boolean existInAdapter(MovieRoomItem movieRoomItem){
+        for (int i = 0; i < adapter.getCount(); i++){
+            // if ids are equal -> movie is in adapter
+            if (adapter.getItem(i).getId() == movieRoomItem.getMovie_id()){
+                return true;
+            }
+        }
+        return false;
     }
 
     private void getDataFromApi(Intent intent){

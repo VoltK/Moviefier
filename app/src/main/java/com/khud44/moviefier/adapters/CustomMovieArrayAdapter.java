@@ -64,11 +64,11 @@ public class CustomMovieArrayAdapter extends ArrayAdapter<RetroMovie>{
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         // Get the data item for this position
-        RetroMovie movie = getItem(position);
+        final RetroMovie movie = getItem(position);
         // Check if an existing view is being reused, otherwise inflate the view
         final ViewHolder viewHolder; // view lookup cache stored in tag
 
-        final View result;
+        View result;
 
         if (convertView == null) {
             viewHolder = new ViewHolder();
@@ -85,7 +85,6 @@ public class CustomMovieArrayAdapter extends ArrayAdapter<RetroMovie>{
             viewHolder.delete = convertView.findViewById(R.id.movie_item_delete);
 
             result=convertView;
-
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
@@ -108,33 +107,33 @@ public class CustomMovieArrayAdapter extends ArrayAdapter<RetroMovie>{
         GradientDrawable ratingCircle = (GradientDrawable) viewHolder.rating.getBackground();
         ratingCircle.setColor(getRatingColor(getContext(), rating));
 
-        viewHolder.delete.setTag(position);
-        viewHolder.delete.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                int i = (Integer) v.getTag();
-                deleteMovie(i, viewHolder.add, viewHolder.delete);
-            }
-        });
-        viewHolder.delete.setVisibility(View.INVISIBLE);
-
-        viewHolder.add.setTag(position);
-        viewHolder.add.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                int i = (Integer) v.getTag();
-                saveMovie(i, v, viewHolder.delete);
-            }
-        });
         // check if move in db -> disable add button, show delete button
         if(viewModel.checkMovieExist(movie.getId()) == 1){
-            checkAddButton(viewHolder.add, 0);
-            viewHolder.delete.setVisibility(View.VISIBLE);
+            checkAddButton(viewHolder, 0);
+        } else{
+            checkAddButton(viewHolder, 1);
         }
 
-        viewHolder.info.setTag(position);
+        //viewHolder.delete.setTag(position);
+        viewHolder.delete.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                deleteMovie(movie, viewHolder);
+            }
+        });
+
+        //viewHolder.add.setTag(position);
+        viewHolder.add.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                //int i = (Integer) v.getTag();
+                saveMovie(movie, viewHolder);
+            }
+        });
+
+        //viewHolder.info.setTag(position);
         viewHolder.info.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                int i = (Integer) v.getTag();
-                showDetails(i);
+                //int i = (Integer) v.getTag();
+                showDetails(movie);
             }
         });
 
@@ -143,8 +142,8 @@ public class CustomMovieArrayAdapter extends ArrayAdapter<RetroMovie>{
         return convertView;
     }
 
-    private void showDetails(int i){
-        int movie_id = getItem(i).getId();
+    private void showDetails(RetroMovie movie){
+        int movie_id = movie.getId();
         Intent intent = new Intent(mContext, MovieDetailsActivity.class);
         // get movie id
         // add key:value to intent with movie id
@@ -153,8 +152,8 @@ public class CustomMovieArrayAdapter extends ArrayAdapter<RetroMovie>{
         mContext.startActivity(intent);
     }
 
-    private void deleteMovie(int i, View addView, View deleteView){
-        RetroMovie movie = getItem(i);
+    private void deleteMovie(RetroMovie movie, ViewHolder viewHolder){
+        //RetroMovie movie = getItem(i);
         viewModel.deleteMovie(movie.getId());
         // delete from arraylist
         if (dbItems){
@@ -162,14 +161,13 @@ public class CustomMovieArrayAdapter extends ArrayAdapter<RetroMovie>{
             notifyDataSetChanged();
             lastPosition--;
         }
-        checkAddButton(addView, 1);
-        deleteView.setVisibility(View.INVISIBLE);
+        checkAddButton(viewHolder, 1);
         showMessage(mContext, movie.getTitle() + " was deleted from your list");
     }
 
-    private void saveMovie(int i, View addView, View deleteView){
+    private void saveMovie(RetroMovie movie, ViewHolder viewHolder){
         Log.e("TEST_DB_ADD", "TRYING TO ADD ITEM TO DATABASE");
-        RetroMovie movie = getItem(i);
+        //RetroMovie movie = getItem(i);
         String title = movie.getTitle();
         //DbViewModel viewModel = ViewModelProviders.of(getContext()).get(DbViewModel.class);
         MovieRoomItem movieRoomItem = new MovieRoomItem(movie.getId(),
@@ -180,18 +178,24 @@ public class CustomMovieArrayAdapter extends ArrayAdapter<RetroMovie>{
                 movie.getVoteAverage());
         // insert new field into database
         viewModel.insertMovie(movieRoomItem);
-        checkAddButton(addView, 0);
-        deleteView.setVisibility(View.VISIBLE);
+        checkAddButton(viewHolder, 0);
+        //deleteView.setVisibility(View.VISIBLE);
         showMessage(mContext, title + " was saved to watch later");
     }
 
-    private void checkAddButton(View v, int i){
+    private void checkAddButton(ViewHolder viewHolder, int i){
         if (i == 0){
-            v.setEnabled(false);
-            v.setBackgroundResource(R.drawable.ic_checked);
+            viewHolder.add.setEnabled(false);
+            // change drawable to checked
+            viewHolder.add.setBackgroundResource(R.drawable.ic_checked);
+            // show delete button
+            viewHolder.delete.setVisibility(View.VISIBLE);
         } else{
-            v.setEnabled(true);
-            v.setBackgroundResource(R.drawable.ic_add_circle_black_24dp);
+            viewHolder.add.setEnabled(true);
+            // change drawable to add
+            viewHolder.add.setBackgroundResource(R.drawable.ic_add_circle_black_24dp);
+            // hide delete button
+            viewHolder.delete.setVisibility(View.INVISIBLE);
         }
     }
 
@@ -207,51 +211,4 @@ public class CustomMovieArrayAdapter extends ArrayAdapter<RetroMovie>{
         return TextUtils.join("/", genresStrings);
     }
 
-//    @Override
-//    public void onClick(View v) {
-//        int position= (Integer) v.getTag();
-//        RetroMovie movie = getItem(position);
-//        String title = movie.getTitle();
-//        int movie_id = movie.getId();
-//
-//        switch (v.getId())
-//        {
-//            case R.id.movie_item_add:
-//                Log.e("TEST_DB_ADD", "TRYING TO ADD ITEM TO DATABASE");
-//                //DbViewModel viewModel = ViewModelProviders.of(getContext()).get(DbViewModel.class);
-//                MovieRoomItem movieRoomItem = new MovieRoomItem(movie_id,
-//                        title,
-//                        movie.getGenreIds(),
-//                        movie.getReleaseDate(),
-//                        movie.getPosterPath(),
-//                        movie.getVoteAverage());
-//                // insert new field into database
-//                viewModel.insertMovie(movieRoomItem);
-//                checkAddButton(v);
-//                //v.delete.setVisibility(View.VISIBLE);
-//                showMessage(mContext, title + " was saved to watch later");
-//                break;
-//
-//            case R.id.movie_item_delete:
-//                // delete movie from db
-//                viewModel.deleteMovie(movie_id);
-//                // delete from arraylist
-//                if (dbItems){
-//                    remove(movie);
-//                    lastPosition--;
-//                    notifyDataSetChanged();
-//                }
-//                showMessage(mContext, title + " was deleted from your list");
-//                break;
-//
-//            case R.id.movie_item_info:
-//                Intent intent = new Intent(mContext, MovieDetailsActivity.class);
-//                // get movie id
-//                // add key:value to intent with movie id
-//                intent.putExtra(INTENT_MOVIE_ID, movie_id);
-//                // start movie details activity
-//                mContext.startActivity(intent);
-//                break;
-//        }
-//    }
 }

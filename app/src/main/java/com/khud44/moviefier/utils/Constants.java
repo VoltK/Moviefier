@@ -35,7 +35,7 @@ public class Constants {
     public static final String INTENT_ACTIVITY_TITLE = "title";
 
     public static final String UPCOMING_TITLE = "Upcoming";
-    public static final String WEEK_TITLE = "This Week";
+    public static final String WEEK_TITLE = "This Week Releases";
     public static final String TOP_TITLE = "Top Rated";
     public static final String SAVED_TITLE = "Saved Movies";
     public static final String SEARCH_ACTIVITY_TITLE = "Search Results For";
