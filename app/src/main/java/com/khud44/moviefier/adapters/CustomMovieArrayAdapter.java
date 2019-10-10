@@ -109,9 +109,9 @@ public class CustomMovieArrayAdapter extends ArrayAdapter<RetroMovie>{
 
         // check if move in db -> disable add button, show delete button
         if(viewModel.checkMovieExist(movie.getId()) == 1){
-            checkAddButton(viewHolder, 0);
+            checkAddButton(viewHolder, true);
         } else{
-            checkAddButton(viewHolder, 1);
+            checkAddButton(viewHolder, false);
         }
 
         //viewHolder.delete.setTag(position);
@@ -161,7 +161,7 @@ public class CustomMovieArrayAdapter extends ArrayAdapter<RetroMovie>{
             notifyDataSetChanged();
             lastPosition--;
         }
-        checkAddButton(viewHolder, 1);
+        checkAddButton(viewHolder, false);
         showMessage(mContext, movie.getTitle() + " was deleted from your list");
     }
 
@@ -178,13 +178,13 @@ public class CustomMovieArrayAdapter extends ArrayAdapter<RetroMovie>{
                 movie.getVoteAverage());
         // insert new field into database
         viewModel.insertMovie(movieRoomItem);
-        checkAddButton(viewHolder, 0);
+        checkAddButton(viewHolder, true);
         //deleteView.setVisibility(View.VISIBLE);
         showMessage(mContext, title + " was saved to watch later");
     }
 
-    private void checkAddButton(ViewHolder viewHolder, int i){
-        if (i == 0){
+    private void checkAddButton(ViewHolder viewHolder, boolean checked){
+        if (checked){
             viewHolder.add.setEnabled(false);
             // change drawable to checked
             viewHolder.add.setBackgroundResource(R.drawable.ic_checked);

@@ -1,6 +1,7 @@
 
 package com.khud44.moviefier.retrofit.models.movie;
 
+import java.util.ArrayList;
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -191,6 +192,14 @@ public class RetroMovieDetails {
 
     public List<Genre> getGenres() {
         return genres;
+    }
+
+    public List<Integer> getGenresIds(){
+        List<Integer> genresIds = new ArrayList<>();
+        for (Genre genre: genres){
+            genresIds.add(genre.getId());
+        }
+        return genresIds;
     }
 
     public void setGenres(List<Genre> genres) {

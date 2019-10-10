@@ -6,9 +6,11 @@ public class Constants {
     public static final String LOCATION_API = "http://ip-api.com";
 
     public static final String DEFAULT_LOCATION = "US";
+    // youtube api key
+    public static final String YOUTUBE_API_KEY = "AIzaSyAY4jFpopvlYuxJo8NZGw5kJz6gxCGNRUE";
     // TheMovieDB related api urls
     // api key
-    public static final String MOVIE_API_KEY = "themoviedb_api_key_here";
+    public static final String MOVIE_API_KEY = "f644dbc4536d5c9c25d6b9d3e3d03208";
     // movie DB base url
     public static final String MOVIE_BASE_URL = "https://api.themoviedb.org/3/";
     // upcoming movies
@@ -46,9 +48,6 @@ public class Constants {
     public static final String LIST_ACTIVITY_SEARCH = "search";
 
     public static final String MOVIE_TITLE = "movie_title";
-
-    // youtube api key
-    public static final String YOUTUBE_API_KEY = "youtube_dev_api_key_here";
 
     public static final int MAX_PAGES = 5;
 
