@@ -6,6 +6,8 @@ public class Constants {
     public static final String LOCATION_API = "http://ip-api.com";
 
     public static final String DEFAULT_LOCATION = "US";
+    // youtube api key
+    public static final String YOUTUBE_API_KEY = "youtube_dev_api_key_here";
     // TheMovieDB related api urls
     // api key
     public static final String MOVIE_API_KEY = "themoviedb_api_key_here";
@@ -46,9 +48,6 @@ public class Constants {
     public static final String LIST_ACTIVITY_SEARCH = "search";
 
     public static final String MOVIE_TITLE = "movie_title";
-
-    // youtube api key
-    public static final String YOUTUBE_API_KEY = "youtube_dev_api_key_here";
 
     public static final int MAX_PAGES = 5;
 

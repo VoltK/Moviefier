@@ -13,7 +13,8 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity" android:screenOrientation="portrait" >
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -22,7 +23,7 @@
         </activity>
 
         <activity android:name=".MovieDetailsActivity"
-                  android:parentActivityName=".MainActivity">
+                  android:parentActivityName=".MainActivity" android:screenOrientation="portrait" >
             <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
@@ -30,7 +31,7 @@
         </activity>
 
         <activity android:name=".MovieListActivity"
-                  android:parentActivityName=".MainActivity">
+                  android:parentActivityName=".MainActivity" android:screenOrientation="portrait" >
             <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
@@ -38,7 +39,7 @@
         </activity>
 
         <activity android:name=".ActorDetailsActivity"
-                  android:parentActivityName=".MainActivity">
+                  android:parentActivityName=".MainActivity" android:screenOrientation="portrait" >
             <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"

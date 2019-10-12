@@ -39,7 +39,6 @@ public class MovieDetailsActivity extends AppCompatActivity implements YouTubePl
     private static final String TAG = MovieDetailsActivity.class.getName();
 
     private ScrollView scrollView;
-    //private YouTubePlayer.OnInitializedListener onInitializedListener;
     private DbViewModel dbViewModel;
     private String videoKey;
     private FloatingActionButton fab;
