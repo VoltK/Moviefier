@@ -1,6 +1,5 @@
 package com.khud44.moviefier.retrofit;
 
-import com.khud44.moviefier.retrofit.models.RetroLocation;
 import com.khud44.moviefier.retrofit.models.actor.RetroActorDetails;
 import com.khud44.moviefier.retrofit.models.movie.AllGenres;
 import com.khud44.moviefier.retrofit.models.movie.RetroMovieDetails;
@@ -10,21 +9,14 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
-import retrofit2.http.Url;
 
 public interface GetData {
-
-//    @GET
-//    Call<RetroLocation> getLocation(@Url String apiUrl);
 
     @GET("movie/upcoming")
     Call<RetroUpcomingResults> getUpcomingMovies(@Query("api_key") String apiKey,
                                                  @Query("language") String language,
                                                  @Query("region") String region,
                                                  @Query("page") int page);
-
-    @GET
-    Call<RetroMovieResults> getMovies(@Url String apiUrl);
 
     @GET("discover/movie")
     Call<RetroMovieResults> getWeekReleases(@Query("api_key") String apiKey,
@@ -61,8 +53,5 @@ public interface GetData {
                                               @Query("query") String movieTitle,
                                               @Query("language") String language,
                                               @Query("page") int page);
-
-//    @GET("movie/{movie_id}/credits")
-//    Call<RetroCastResults> getMovieCast(@Path("movie_id") int movie_id, @Query("api_key") String apiKey);
 
 }
