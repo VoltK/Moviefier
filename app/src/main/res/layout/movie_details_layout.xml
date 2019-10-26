@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:background="@color/backgroundOlive"
                 xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
@@ -81,7 +80,7 @@
 
                         <TextView
 
-                                android:text="Title"
+                                android:text="@string/title"
                                 android:layout_width="140dp"
                                 android:layout_height="wrap_content"
                                 android:textSize="24sp"
@@ -106,7 +105,7 @@
                                 app:layout_constraintTop_toBottomOf="@+id/titleDetails"
                                 app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="16dp"/>
                         <TextView
-                                android:text="Rating:"
+                                android:text="@string/rating"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textColor="@color/primaryTextColor"
@@ -131,7 +130,7 @@
                                 app:layout_constraintStart_toEndOf="@+id/textView6" android:layout_marginStart="28dp"
                                 android:layout_marginTop="8dp"/>
                         <TextView
-                                android:text="Director:"
+                                android:text="@string/director"
                                 android:textColor="@color/primaryTextColor"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -148,7 +147,7 @@
                                 app:layout_constraintTop_toBottomOf="@+id/ratingDetails"
                                 android:layout_marginStart="16dp"/>
                         <TextView
-                                android:text="Budget:"
+                                android:text="@string/budget"
                                 android:textColor="@color/primaryTextColor"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -165,7 +164,7 @@
                                 android:layout_marginStart="20dp" android:layout_marginTop="10dp"
                                 app:layout_constraintTop_toBottomOf="@+id/directorDetails"/>
                         <TextView
-                                android:text="Released:"
+                                android:text="@string/released"
                                 android:textColor="@color/primaryTextColor"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -203,7 +202,7 @@
                         android:layout_height="wrap_content" android:layout_weight="3">
 
                     <TextView
-                            android:text="Overview"
+                            android:text="@string/overview"
                             android:textColor="@color/colorOrangeText"
                             android:textSize="18dp"
                             android:layout_width="wrap_content"

@@ -7,7 +7,6 @@ import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -34,24 +33,29 @@ import java.util.List;
 import static com.khud44.moviefier.utils.Constants.*;
 import static com.khud44.moviefier.utils.Helpers.*;
 
-public class MovieDetailsActivity extends AppCompatActivity implements YouTubePlayer.OnInitializedListener {
+public class MovieDetailsActivity extends BaseActivity implements YouTubePlayer.OnInitializedListener {
 
     private static final String TAG = MovieDetailsActivity.class.getName();
 
     private ScrollView scrollView;
     private DbViewModel dbViewModel;
     private String videoKey;
+    //private String language;
     private FloatingActionButton fab;
     private boolean added;
 
-    private GetData service;
+    //private GetData service;
     private int movie_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.movie_details_layout);
+        screenLayout = R.layout.movie_details_layout;
+        internetNeeded = true;
+        setContentView(screenLayout);
+    }
 
+    public void initAll(){
         // Get the Intent that started this activity and extract the string
         Intent intent = getIntent();
         movie_id = intent.getIntExtra(INTENT_MOVIE_ID, 0);
@@ -66,12 +70,11 @@ public class MovieDetailsActivity extends AppCompatActivity implements YouTubePl
         service = RetrofitClient.getRetrofitInstance().create(GetData.class);
 
         retrofitGetMovieDetails();
-
     }
 
     private void retrofitGetMovieDetails(){
 
-        Call<RetroMovieDetails> call = service.getMovieDetails(movie_id, MOVIE_API_KEY, "credits,videos");
+        Call<RetroMovieDetails> call = service.getMovieDetails(movie_id, MOVIE_API_KEY, language,"credits,videos");
         call.enqueue(new Callback<RetroMovieDetails>() {
             @Override
             public void onResponse(Call<RetroMovieDetails> call, Response<RetroMovieDetails> response) {
@@ -156,7 +159,8 @@ public class MovieDetailsActivity extends AppCompatActivity implements YouTubePl
         // budget view
         TextView budgetView = findViewById(R.id.budgetDetails);
         NumberFormat format = NumberFormat.getCurrencyInstance();
-        budgetView.setText(format.format(movieDetails.getBudget()));
+        int budget = movieDetails.getBudget();
+        budgetView.setText( budget > 0 ? format.format(budget) : "?");
 
         // release date view
         TextView releasedView = findViewById(R.id.releasedDetails);
@@ -184,7 +188,7 @@ public class MovieDetailsActivity extends AppCompatActivity implements YouTubePl
             youtubePlayerFragment.initialize(YOUTUBE_API_KEY, this);
         }
         else{
-            showMessage(MovieDetailsActivity.this, "No trailer is available");
+            showMessage(MovieDetailsActivity.this, getString(R.string.trailer_error));
         }
 
     }
@@ -241,7 +245,7 @@ public class MovieDetailsActivity extends AppCompatActivity implements YouTubePl
 
     @Override
     public void onInitializationFailure (YouTubePlayer.Provider provider, YouTubeInitializationResult error) {
-            showMessage(MovieDetailsActivity.this,"Failed to load trailer");
+            showMessage(MovieDetailsActivity.this,getString(R.string.trailer_error));
     }
 
 }

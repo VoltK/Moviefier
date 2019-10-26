@@ -1,7 +1,9 @@
 package com.khud44.moviefier.utils;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
@@ -17,6 +19,9 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
 import com.khud44.moviefier.R;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class Helpers {
 
@@ -88,11 +93,28 @@ public class Helpers {
             .error(R.drawable.no_image2);
 
     public static void loadImage(Context context, String fullPath, ProgressBar progressBar, ImageView imageView){
-        Glide.with(context).asBitmap()
+        // getApplicationContext() instead of context to fix the bug in Glide when activity isFinishing() and app crashes
+        Glide.with(context.getApplicationContext()).asBitmap()
                 .load(fullPath)
                 .apply(requestOptions)
                 .listener(getRequestListener(progressBar))
                 .into(imageView);
+    }
+
+    public static Map<String, String> loadPreferences(Context context){
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        Map<String, String> prefInfo = new HashMap<>();
+        // keys
+        String locationKey = context.getString(R.string.settings_location_key);
+        String languageKey = context.getString(R.string.settings_language_key);
+        // values
+        String locationValue = sharedPreferences.getString(locationKey, context.getString(R.string.location_us_code));
+        String languageValue = sharedPreferences.getString(languageKey, context.getString(R.string.language_en_value));
+
+        prefInfo.put(locationKey, locationValue);
+        prefInfo.put(languageKey, languageValue);
+
+        return prefInfo;
     }
 
 }

@@ -12,18 +12,18 @@ public class DbViewModel extends AndroidViewModel {
 
     private DbRepository mRepository;
     private LiveData<List<MovieRoomItem>> mAllMovies;
-    private List<GenreRoomItem> mAllGenres;
+    //private List<GenreRoomItem> mAllGenres;
 
     public DbViewModel(Application application) {
         super(application);
         mRepository = new DbRepository(application);
         mAllMovies = mRepository.getAllMovies();
-        mAllGenres = mRepository.getAllGenres();
+        //mAllGenres = mRepository.getAllGenres(language);
     }
 
     public LiveData<List<MovieRoomItem>> getAllWords() { return mAllMovies; }
-    public List<GenreRoomItem> getAllGenres() {
-        return mAllGenres;
+    public List<GenreRoomItem> getAllGenres(String language) {
+        return mRepository.getAllGenres(language);
     }
 
     public void insertMovie(MovieRoomItem movieRoomItem) { mRepository.insertMovie(movieRoomItem); }

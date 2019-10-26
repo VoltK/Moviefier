@@ -1,32 +1,35 @@
 <resources>
     <string name="app_name">Moviefier</string>
-    <string name="location">Country: </string>
-    <string name="view_all">View All</string>
-    <string name="upcoming">Upcoming</string>
-    <string name="week_release">This Week Releases</string>
-    <string name="top">Top Rated</string>
-    <string name="search_result">Search Results For</string>
-    <string name="saved_movies">Saved Movies</string>
+    <string name="location">Pays: </string>
+    <string name="view_all">Voir tout</string>
+    <string name="upcoming">A venir</string>
+    <string name="week_release">Les communiqués de cette semaine</string>
+    <string name="top">Les mieux notés</string>
+    <string name="search_result">Résultats de recherche pour</string>
+    <string name="saved_movies">Films sauvegardés</string>
 
-    <string name="title">Title</string>
-    <string name="released">Released:</string>
-    <string name="rating">Rating:</string>
+    <string name="title">Titre</string>
+    <string name="released">Libéré:</string>
+    <string name="rating">Évaluation:</string>
 
-    <string name="nothing_saved">You haven\'t saved any movies yet!</string>
+    <string name="nothing_saved">Vous n\'avez encore enregistré aucun film!</string>
 
-    <string name="director">Director:</string>
+    <string name="director">Réalisateur:</string>
     <string name="budget">Budget:</string>
-    <string name="overview">Overview</string>
+    <string name="overview">Vue d\'ensemble</string>
 
-    <string name="known_for">Known For:</string>
-    <string name="bio">Biography:</string>
-    <string name="present">present</string>
+    <string name="known_for">Connu pour:</string>
+    <string name="bio">Biographie:</string>
+    <string name="present">présent</string>
 
-    <string name="settings">Settings</string>
-    <string name="search">Search</string>
-    <string name="search_hint">Movie</string>
 
-    <string name="settings_location_title">Pick a country</string>
+
+    <string name="settings">Paramètres</string>
+    <string name="search">Chercher</string>
+    <string name="search_hint">film</string>
+
+
+    <string name="settings_location_title">Choisissez un pays</string>
 
     <string name="settings_location_key">location</string>
 
@@ -45,7 +48,7 @@
     <string name="location_ua_label">Ukraine</string>
     <string name="location_ua_code">UA</string>
 
-    <string name="settings_language_title">Pick a language</string>
+    <string name="settings_language_title">Choisissez une langue</string>
 
     <string name="settings_language_key">language</string>
 
@@ -61,22 +64,20 @@
     <string name="language_ru_label">Русский</string>
     <string name="language_ru_value">ru</string>
 
-
-
     <string name="overview_test">
         Lorem ipsum dolor sit amet, nam eu accumsan felis aenean non in, vel ut amet eget sagittis odio, donec et in lobortis cras. Malesuada sed fermentum ultrices nisl, sed nullam amet morbi et maecenas mi, elementum porttitor vitae quisque, turpis dapibus, dolorum eu non sed amet tortor. Tempus blandit, elit ut hic sagittis mauris augue, vitae vel turpis pede, fermentum ipsum non mollis nulla, feugiat erat. Vitae vitae vestibulum proin magna, eu integer, libero elit mauris scelerisque nec vero. Consectetuer ut, aenean interdum ac velit etiam, proin nunc nisl luctus ligula metus. Class amet vitae eleifend, cursus venenatis, iaculis purus molestie ut, parturient interdum pede enim, pede senectus nisl nam. Quis magna amet tempor nunc cursus, amet mauris diam ullamcorper proin mattis, et libero bibendum etiam aliquam tempus, id eget tempus eu sociosqu, lacus cursus.
     </string>
 
-    <string name="trailer_error">No trailer is available</string>
+    <string name="trailer_error">Aucune remorque n\'est disponible</string>
 
-    <string name="reconnect_error">Failed to reconnect</string>
+    <string name="reconnect_error">Échec de la reconnexion</string>
 
-    <string name="fetch_upcoming_error">Failed to fetch upcoming movies</string>
+    <string name="fetch_upcoming_error">Impossible de récupérer les films à venir</string>
 
-    <string name="empty_field">Field cannot be empty</string>
+    <string name="empty_field">Le champ ne peut pas être vide</string>
 
-    <string name="no_connection">No Internet Connection!</string>
+    <string name="no_connection">Pas de connexion Internet!</string>
 
-    <string name="reconnect">RECONNECT</string>
+    <string name="reconnect">RECONNECTER</string>
 
 </resources>

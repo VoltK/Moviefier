@@ -6,6 +6,19 @@
         <item name="colorPrimary">@color/primaryColor</item>
         <item name="colorPrimaryDark">@color/primaryDarkColor</item>
         <item name="colorAccent">@color/primaryLightColor</item>
+        <item name="android:windowBackground">@color/backgroundOlive</item>
+
+
     </style>
+
+    <style name="SettingsTheme" parent="@style/PreferenceFixTheme.Light.DarkActionBar">
+        <item name="colorPrimary">@color/primaryColor</item>
+        <item name="colorPrimaryDark">@color/primaryDarkColor</item>
+        <item name="colorAccent">@color/primaryLightColor</item>
+        <item name="android:windowBackground">@color/backgroundOlive</item>
+
+    </style>
+
+
 
 </resources>

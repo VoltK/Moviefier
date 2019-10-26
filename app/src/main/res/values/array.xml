@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <array name="settings_countries_labels">
+        <item>@string/location_us_label</item>
+        <item>@string/location_fr_label</item>
+        <item>@string/location_es_label</item>
+        <item>@string/location_ru_label</item>
+        <item>@string/location_ua_label</item>
+    </array>
+
+    <array name="settings_countries_values">
+        <item>@string/location_us_code</item>
+        <item>@string/location_fr_code</item>
+        <item>@string/location_es_code</item>
+        <item>@string/location_ru_code</item>
+        <item>@string/location_ua_code</item>
+    </array>
+
+    <array name="settings_languages_labels">
+        <item>@string/language_en_label</item>
+        <item>@string/language_fr_label</item>
+        <item>@string/language_es_label</item>
+        <item>@string/language_ru_label</item>
+    </array>
+
+    <array name="settings_languages_values">
+        <item>@string/language_en_value</item>
+        <item>@string/language_fr_value</item>
+        <item>@string/language_es_value</item>
+        <item>@string/language_ru_value</item>
+    </array>
+
+
+</resources>

@@ -54,13 +54,26 @@ public class DbRepository {
 //    }
 
     // TEST
-    public List<GenreRoomItem> getAllGenres() {
+    public List<GenreRoomItem> getAllGenres(String language) {
         try {
-            return new getGenresAsyncTask(myDAO).execute().get();
+            return new getGenresAsyncTask(myDAO).execute(language).get();
         } catch (ExecutionException | InterruptedException e){
             return new ArrayList<>();
         }
     }
+
+//    private static class getGenreByLanguageAsyncTask extends  AsyncTask<String, Void, List<GenreRoomItem>>{
+//        private MyDAO mAsyncTaskDao;
+//
+//        getGenreByLanguageAsyncTask(MyDAO dao) {
+//            mAsyncTaskDao = dao;
+//        }
+//
+//        @Override
+//        protected List<GenreRoomItem> doInBackground(String... language) {
+//            return mAsyncTaskDao.getGenreByLanguage(language[0]);
+//        }
+//    }
 
     private static class getCheckMovieAsyncTask extends AsyncTask<Integer, Void, Integer>{
 
@@ -77,7 +90,7 @@ public class DbRepository {
 
     }
 
-    private static class getGenresAsyncTask extends AsyncTask<Void, Void, List<GenreRoomItem>> {
+    private static class getGenresAsyncTask extends AsyncTask<String, Void, List<GenreRoomItem>> {
 
         private MyDAO mAsyncTaskDao;
 
@@ -86,8 +99,11 @@ public class DbRepository {
         }
 
         @Override
-        protected List<GenreRoomItem> doInBackground(Void... url) {
-            return mAsyncTaskDao.getGenreRoomItems();
+        protected List<GenreRoomItem> doInBackground(String... url) {
+            if (url != null){
+                return mAsyncTaskDao.getGenreByLanguage(url[0]);
+            }
+            return mAsyncTaskDao.getGenreAll();
         }
     }
 

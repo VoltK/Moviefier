@@ -1,10 +1,7 @@
 package com.khud44.moviefier;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -13,14 +10,6 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.DataSource;
-import com.bumptech.glide.load.engine.GlideException;
-import com.bumptech.glide.load.resource.bitmap.CenterCrop;
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.RequestOptions;
-import com.bumptech.glide.request.target.Target;
 import com.khud44.moviefier.adapters.RecycleViewAdapter;
 import com.khud44.moviefier.retrofit.models.actor.Cast;
 import com.khud44.moviefier.retrofit.models.actor.RetroActorDetails;
@@ -35,20 +24,21 @@ import java.util.List;
 import static com.khud44.moviefier.utils.Constants.*;
 import static com.khud44.moviefier.utils.Helpers.loadImage;
 
-public class ActorDetailsActivity extends AppCompatActivity {
+public class ActorDetailsActivity extends BaseActivity {
 
         private static final String TAG = ActorDetailsActivity.class.getName();
 
-        ScrollView scrollView;
-
-        private GetData service;
+        private ScrollView scrollView;
         private int actor_id;
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-            setContentView(R.layout.actor_details_layout);
+            screenLayout = R.layout.actor_details_layout;
+            setContentView(screenLayout);
+        }
 
+        public void initAll(){
             // Get the Intent that started this activity and extract the string
             Intent intent = getIntent();
             actor_id = intent.getIntExtra(INTENT_ACTOR_ID, 0);
@@ -57,14 +47,12 @@ public class ActorDetailsActivity extends AppCompatActivity {
             scrollView.setVisibility(View.GONE);
 
             Log.d(TAG, "ACTOR ID: " + actor_id);
-
             service = RetrofitClient.getRetrofitInstance().create(GetData.class);
             retrofitGetActorDetails();
-
         }
 
         private void retrofitGetActorDetails(){
-            Call<RetroActorDetails> call = service.getActorDetails(actor_id, MOVIE_API_KEY, "movie_credits");
+            Call<RetroActorDetails> call = service.getActorDetails(actor_id, MOVIE_API_KEY, language, "movie_credits");
             call.enqueue(new Callback<RetroActorDetails>() {
                 @Override
                 public void onResponse(Call<RetroActorDetails> call, Response<RetroActorDetails> response) {
@@ -89,7 +77,7 @@ public class ActorDetailsActivity extends AppCompatActivity {
 
             TextView yearView = findViewById(R.id.actorDetailsYears);
             String death = actorDetails.getDeathday();
-            String years = String.format("(%s - %s)", actorDetails.getBirthday(), death != null ? death: "present");
+            String years = String.format("(%s - %s)", actorDetails.getBirthday(), death != null ? death: getString(R.string.present));
             yearView.setText(years);
 
             TextView bioView = findViewById(R.id.actorDetailsBio);

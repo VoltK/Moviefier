@@ -9,7 +9,7 @@ import com.khud44.moviefier.data.dao.MyDAO;
 import com.khud44.moviefier.data.models.GenreRoomItem;
 import com.khud44.moviefier.data.models.MovieRoomItem;
 
-@Database(entities = {MovieRoomItem.class, GenreRoomItem.class}, version = 4, exportSchema = false)
+@Database(entities = {MovieRoomItem.class, GenreRoomItem.class}, version = 6, exportSchema = false)
 @TypeConverters({Converters.class})
 public abstract class AppDatabase extends RoomDatabase {
 

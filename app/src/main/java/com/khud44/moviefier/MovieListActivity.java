@@ -5,7 +5,6 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
@@ -30,18 +29,15 @@ import java.util.List;
 import static com.khud44.moviefier.utils.Constants.*;
 import static com.khud44.moviefier.utils.Helpers.showMessage;
 
-public class MovieListActivity extends AppCompatActivity {
+public class MovieListActivity extends BaseActivity {
 
     private static final String TAG = MovieListActivity.class.getName();
 
     private ListView listView;
     private CustomMovieArrayAdapter adapter;
-    private String location;
-    private String language;
-
-    private GetData service;
 
     private DbViewModel dbViewModel;
+    private Intent intent;
 
     private int page;
     private int total;
@@ -49,14 +45,18 @@ public class MovieListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.movie_list_layout);
+        screenLayout = R.layout.movie_list_layout;
+        intent = getIntent();
+        // if we use storage -> no internet check
+        internetNeeded = !intent.hasExtra(INTENT_STORAGE);
+        setContentView(screenLayout);
+    }
 
+    public void initAll(){
         dbViewModel = ViewModelProviders.of(this).get(DbViewModel.class);
-        List<GenreRoomItem> genreRoomItems = dbViewModel.getAllGenres();
+        List<GenreRoomItem> genreRoomItems = dbViewModel.getAllGenres(language);
 
-        Intent intent = getIntent();
-        location = intent.getStringExtra(INTENT_LOCATION);
-        language = intent.getStringExtra(INTENT_LANGUAGE);
+        //Intent intent =
 
         listView = findViewById(R.id.movie_list);
         // init empty adapter
@@ -68,16 +68,40 @@ public class MovieListActivity extends AppCompatActivity {
         // hide empty view while fetching data
         listView.getEmptyView().setVisibility(View.GONE);
 
-        TextView activityTitle = findViewById(R.id.movieCategory);
-        activityTitle.setText(intent.getStringExtra(INTENT_ACTIVITY_TITLE));
+        setListTitle();
 
         if (intent.hasExtra(INTENT_STORAGE)){
             getDataFromStorage();
         }
         else {
-            getDataFromApi(intent);
+            getDataFromApi();
+        }
+    }
+
+    private void setListTitle(){
+        TextView activityTitle = findViewById(R.id.movieCategory);
+        String title = "";
+        switch (intent.getStringExtra(INTENT_LIST_ACTIVITY)){
+            case LIST_ACTIVITY_SAVED:
+                title = getString(R.string.saved_movies);
+                break;
+            case LIST_ACTIVITY_UPCOMING:
+                title = getString(R.string.upcoming);
+                break;
+            case LIST_ACTIVITY_WEEK:
+                title = getString(R.string.week_release);
+                break;
+            case LIST_ACTIVITY_TOP:
+                title = getString(R.string.top);
+                break;
+            case LIST_ACTIVITY_SEARCH:
+                title = getString(R.string.search_result) + " \"" + intent.getStringExtra(MOVIE_TITLE) + "\"";
+
+            default:
+                    break;
         }
 
+        activityTitle.setText(title);
     }
 
     private void checkEmptyView(){
@@ -123,13 +147,12 @@ public class MovieListActivity extends AppCompatActivity {
         return false;
     }
 
-    private void getDataFromApi(Intent intent){
+    private void getDataFromApi(){
 
             String api = intent.getStringExtra(INTENT_LIST_ACTIVITY);
             String movieTitle = intent.hasExtra(MOVIE_TITLE) ? intent.getStringExtra(MOVIE_TITLE) : "";
 
             service = RetrofitClient.getRetrofitInstance().create(GetData.class);
-            String apiUrl;
             // page to start
             page = 1;
             total = 2;
@@ -141,12 +164,11 @@ public class MovieListActivity extends AppCompatActivity {
                     retrofitSearchMovies(movieTitle);
                 }
                 else {
-                    apiUrl = getApiUrl(api, page);
 
                     if (api.equals(LIST_ACTIVITY_UPCOMING)) {
-                        retrofitGetUpcomingMovies(apiUrl);
+                        retrofitGetUpcomingMovies();
                     } else{
-                        retrofitGetMovies(apiUrl);
+                        retrofitGetMovies(api);
                     }
                 }
                 Log.d(TAG, "MADE A CALL TO PAGE #" + page);
@@ -156,8 +178,8 @@ public class MovieListActivity extends AppCompatActivity {
             }
     }
 
-    private void retrofitGetUpcomingMovies(String apiUrl){
-        Call<RetroUpcomingResults> call = service.getUpcomingMovies(apiUrl);
+    private void retrofitGetUpcomingMovies(){
+        Call<RetroUpcomingResults> call = service.getUpcomingMovies(MOVIE_API_KEY, language,location,page);
 
         call.enqueue(new Callback<RetroUpcomingResults>() {
 
@@ -170,13 +192,29 @@ public class MovieListActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<RetroUpcomingResults> call, Throwable t) {
                 Log.e(TAG, "Error making a call; page - " + page +  "\n" + t);
-                showMessage(MovieListActivity.this, "Failed to fetch upcoming movies");
+                showMessage(MovieListActivity.this, getString(R.string.fetch_upcoming_error));
             }
         });
     }
 
-    private void retrofitGetMovies(String apiUrl){
-        Call<RetroMovieResults> call = service.getMovies(apiUrl);
+    private void retrofitGetMovies(String api){
+        Call<RetroMovieResults> call;
+        if (api.equals(LIST_ACTIVITY_WEEK)){
+            ThisWeek thisWeek = ThisWeek.getInstance();
+            call = service.getWeekReleases(MOVIE_API_KEY,
+                    language,
+                    location,
+                    thisWeek.getFirstDayOfWeek(),
+                    thisWeek.getLastDayOfWeek(),
+                    "2|3",
+                    page);
+        }
+        else {
+            call = service.getTopRated(MOVIE_API_KEY,
+                    language,
+                    location,
+                    page);
+        }
 
         call.enqueue(new Callback<RetroMovieResults>() {
             @Override
@@ -207,41 +245,6 @@ public class MovieListActivity extends AppCompatActivity {
                 Log.e(TAG, "Error searching for a movie " + "\n" + t);
             }
         });
-    }
-
-    private String getApiUrl(String api, int page){
-        ThisWeek thisWeek = new ThisWeek();
-        String result;
-        switch(api){
-            case LIST_ACTIVITY_UPCOMING:
-                result = String.format(UPCOMING_MOVIE_API,
-                        // api key
-                        MOVIE_API_KEY,
-                        // language
-                        language,
-                        // page
-                        page,
-                        // country (region)
-                        location);
-                break;
-            case LIST_ACTIVITY_WEEK:
-                result = String.format(WEEK_RELEASE_MOVIE_API, MOVIE_API_KEY,
-                        language,
-                        location,
-                        thisWeek.getFirstDayOfWeek(),
-                        thisWeek.getLastDayOfWeek(),
-                        page);
-                break;
-
-            case LIST_ACTIVITY_TOP:
-                result = String.format(TOP_RATED_MOVIE_API, MOVIE_API_KEY, language, page, location);
-                break;
-
-            default:
-                result = "";
-                break;
-        }
-        return result;
     }
 
     private void successfulResponse(List<RetroMovie> movies, int totalPages){

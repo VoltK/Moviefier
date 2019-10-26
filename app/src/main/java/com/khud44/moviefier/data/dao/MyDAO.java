@@ -31,11 +31,11 @@ public interface MyDAO {
     public int checkMovieExist(int movie_id);
 
     @Query("SELECT * FROM genres")
-    public List<GenreRoomItem> getGenreRoomItems();
+    public List<GenreRoomItem> getGenreAll();
 
 
-    @Query("SELECT name FROM genres WHERE genre_id IN (:genreIds)")
-    public List<String> getGenre(List<String> genreIds);
+    @Query("SELECT * FROM genres WHERE language = :language")
+    public List<GenreRoomItem> getGenreByLanguage(String language);
 
     @Query("SELECT COUNT(*) FROM GENRES")
     public int getGenresCount();

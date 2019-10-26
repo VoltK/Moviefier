@@ -16,6 +16,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    android {
+        lintOptions {
+            abortOnError false
+        }
+    }
+
 }
 
 dependencies {
@@ -47,4 +53,8 @@ dependencies {
     implementation "android.arch.lifecycle:viewmodel:1.1.0"
 
     implementation 'com.android.support:design:28.0.0'
+    
+    // preference ( there is a bug in a standard compat library for preferences, which fails theming for pref fragment ) 
+    implementation "com.takisoft.fix:preference-v7:27.0.0.0"
+    
 }
